@@ -6,6 +6,7 @@
   "scripts": {
     "dev:homepage": "npm run --workspace=@nats-test/homepage dev",
     "build:homepage": "npm run --workspace=@nats-test/homepage build",
+    "start:message-server": "nats-server -c ./services/message-brooker/nats.conf",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "LarsG",

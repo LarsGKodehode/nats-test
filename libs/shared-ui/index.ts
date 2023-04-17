@@ -1,1 +1,1 @@
-export * from './hooks/useMessageBroker/useMessageBrooker'
+export * from './hooks/subscribeToChannel/subscribeToChannel'

@@ -1,28 +1,83 @@
-import { useMessageBrooker } from "@nats-test/shared-ui"
-import { useEffect } from "react"
+import {
+  BrookerConnection,
+  subscribeToChannel
+} from "@nats-test/shared-ui"
+import React,
+{
+  ChangeEvent,
+  SetStateAction,
+  useEffect,
+  useState
+} from "react"
 
-interface MessageBoardProps {
-
+function handleSubmit(
+  event: React.FormEvent<HTMLFormElement>,
+  msg: string,
+  brooker: BrookerConnection,
+) {
+  event.preventDefault()
+  if (msg.length === 0) return
+  if (!brooker) return
+  brooker.publish(msg)
 }
 
-const MESSAGE_SERVER_URLS = ""
+function handleFormChange(
+  event: ChangeEvent<HTMLInputElement>,
+  callback: React.Dispatch<SetStateAction<string>>
+) {
+  callback(event.target.value)
+}
 
-export function MessageBoard(props: MessageBoardProps) {
+function newMessage(
+  message: string,
+  callback: React.Dispatch<SetStateAction<string[]>>
+) {
+  callback(prev => [...prev, message])
+}
+
+interface MessageBoardProps {
+  channel: string,
+}
+
+export function MessageBoard({
+  channel = "common"
+}: MessageBoardProps) {
+  const [brooker, setBrooker] = useState<BrookerConnection>(null)
+  const [msg, setMessage] = useState("")
+  const [chat, updateChat] = useState<string[]>([])
 
   useEffect(
     () => {
-      useMessageBrooker({
-        servers: MESSAGE_SERVER_URLS,
-        subject: "test"
-      })
-
-
-    }
+      subscribeToChannel({
+        subject: channel,
+        callback: (msg) => newMessage(msg, updateChat)
+      }).then(setBrooker)
+    },
+    []
   )
 
   return (
     <div>
       <h1>Message Board</h1>
+      <form onSubmit={(event) => handleSubmit(event, msg, brooker)}>
+        <input
+          type="text"
+          name=""
+          id=""
+          placeholder="Comment..."
+          value={msg}
+          onChange={(event) => handleFormChange(event, setMessage)}
+        />
+        <button type="submit">Comment</button>
+      </form>
+      <hr />
+      <ul>
+        {
+          chat.map(
+            (messages) => <li><h5>{messages}</h5></li>
+          )
+        }
+      </ul>
     </div>
   )
 }
