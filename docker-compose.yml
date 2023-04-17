@@ -1,0 +1,5 @@
+services:
+  nats:
+    iamge: nats:latest
+    ports:
+      - "8222:8222"
