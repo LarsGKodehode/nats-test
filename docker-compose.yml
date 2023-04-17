@@ -5,38 +5,6 @@ services:
     volumes:
        - ./services/message-brooker/:/etc/nats
     ports:
-      - 8080:8080
+      - 23422:8080
       - 6222:6222
       - 8222:8222
-    networks:
-      - message-bus
-    profiles:
-      - backend
-
-  nats-proxy:
-    build:
-      context: ./services/nats-proxy
-      dockerfile: ./Dockerfile
-    depends_on:
-      - nats
-    ports:
-      - 4223:4223
-    networks:
-      - message-bus
-    profiles:
-      - backend
-
-  # app-homepage:
-  #   build:
-  #     context: ./apps/homepage
-  #     dockerfile: ./Dockerfile
-  #   depends_on:
-  #     - nats
-  #   ports:
-  #     - 3333:80
-  #   networks:
-  #     - message-bus
-
-networks:
-  message-bus:
-    driver: bridge

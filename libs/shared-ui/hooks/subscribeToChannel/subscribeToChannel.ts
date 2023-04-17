@@ -5,7 +5,7 @@ import {
 } from 'nats.ws'
 
 const codec = StringCodec()
-const CHANNEL_URLS = "ws://localhost:8080/"
+const CHANNEL_URLS = "ws://localhost:23422/"
 
 export interface ChannelOptions {
   subject: string,
