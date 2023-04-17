@@ -1,0 +1,19 @@
+{
+  "name": "nats-test",
+  "version": "0.1.0",
+  "description": "messaging application with React and Nats",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "LarsG",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "workspaces": [
+    "apps/homepage",
+    "libs/shared-ui"
+  ]
+}
