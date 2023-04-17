@@ -4,6 +4,8 @@
   "description": "messaging application with React and Nats",
   "main": "index.js",
   "scripts": {
+    "dev:homepage": "npm run --workspace=@nats-test/homepage dev",
+    "build:homepage": "npm run --workspace=@nats-test/homepage build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "LarsG",
