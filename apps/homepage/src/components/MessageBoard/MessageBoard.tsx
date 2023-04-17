@@ -13,12 +13,14 @@ import React,
 function handleSubmit(
   event: React.FormEvent<HTMLFormElement>,
   msg: string,
+  msgCallback: React.Dispatch<SetStateAction<string>>,
   brooker: BrookerConnection,
 ) {
   event.preventDefault()
   if (msg.length === 0) return
   if (!brooker) return
   brooker.publish(msg)
+  msgCallback("")
 }
 
 function handleFormChange(
@@ -59,7 +61,7 @@ export function MessageBoard({
   return (
     <div>
       <h1>Message Board</h1>
-      <form onSubmit={(event) => handleSubmit(event, msg, brooker)}>
+      <form onSubmit={(event) => handleSubmit(event, msg, setMessage, brooker)}>
         <input
           type="text"
           name=""
